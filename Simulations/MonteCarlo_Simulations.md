@@ -46,7 +46,7 @@ h_i <- sapply(x, h)
 I.100 = sum(h_i)/N
 ```
 
-This return a value of \(I\approx\) 0.604458. The true value of the integral is \(3\pi/16\approx\) 0.5890486, so we are close, but it's not great.
+This return a value of \(I\approx\) 0.5407839. The true value of the integral is \(3\pi/16\approx\) 0.5890486, so we are close, but it's not great.
 
 Lets try again with more simulations. Lets repeat the process with \(N=1000\).
 
@@ -58,7 +58,7 @@ h_i <- sapply(x_i, h)
 I.1k = sum(h_i)/N
 ```
 
-This time we have \(I\approx\) 0.5905397.
+This time we have \(I\approx\) 0.5928041.
 
 Lets try again with more simulations. Lets repeat the process with \(N=10,000\).
 
@@ -70,7 +70,7 @@ h_i <- sapply(x_i, h)
 I.10k = sum(h_i)/N
 ```
 
-Here we get \(I\approx\) 0.5901561.
+Here we get \(I\approx\) 0.590772.
 
 Note that since the \(x_i\)s are random it is possible to get a better approximate from \(N=100\) than \(N=10,000\), but generally you will have numbers distributed around the real value and the variance of those number should decrease as you increase \(N\), the number of simulations. I.e. Larger values of \(N\) give better approximations more often. To show this, lets do 100 approximations of \(I\) using \(N=100,1000,10000\). Then we can use a box plot to see the difference.
 
@@ -109,7 +109,9 @@ abline(h = 3*pi/16, col="red",lwd=2)
 legend('topright', "True value", col="red", lwd=2, bg="white")
 ```
 
-![](MonteCarlo_Simulations_files/figure-markdown_github/unnamed-chunk-7-1.png) So each box represents 100 simulations of \(I\) for a given \(N\). The red line is at \(3\pi/16\), corresponds true value of the integral. Notice all the boxplots are centered at the correct value, however as we increase the number of itereations \(N\), we get less varaiance in the sample. i.e. As \(N\) increases, the varaince of the sample decreases.
+![](MonteCarlo_Simulations_files/figure-markdown_github/unnamed-chunk-7-1.png)
+
+So each box represents 100 simulations of \(I\) for a given \(N\). The red line is at \(3\pi/16\), corresponds true value of the integral. Notice all the boxplots are centered at the correct value, however as we increase the number of itereations \(N\), we get less varaiance in the sample. i.e. As \(N\) increases, the varaince of the sample decreases.
 
 b) Approximating \(\int_0^\infty {x(1+x^2)^{-2}} dx\)
 -----------------------------------------------------
@@ -152,7 +154,7 @@ h_i <- sapply(x_i, h)
 I.10k = sum(h_i)/N
 ```
 
-This gives \(I\approx\) 0.4795421 for \(N=100\), \(I\approx\) 0.5021378 for \(N=1000\) and \(I\approx\) 0.4973158 for \(N=10,000\). In fact, the true value of \(I\) is \(1/2\), so these values are pretty good. Let's look at box plots of 100 Simulations with \(N=100\), \(N=1,000\) and \(N=10,000\).
+This gives \(I\approx\) 0.506985 for \(N=100\), \(I\approx\) 0.4997667 for \(N=1000\) and \(I\approx\) 0.4932682 for \(N=10,000\). In fact, the true value of \(I\) is \(1/2\), so these values are pretty good. Let's look at box plots of 100 Simulations with \(N=100\), \(N=1,000\) and \(N=10,000\).
 
 ``` r
 approximateI <- function(N1){
@@ -416,7 +418,7 @@ rs.scatter + stat_function(fun=f, colour = "black", size=2)
 
 ![](MonteCarlo_Simulations_files/figure-markdown_github/plotting%20draws-1.png)
 
-In the figure above we can see all of the draws with the rejected samples in red and the accepted samples in blue. The target distribution, \(f(x)=30(x^2-2x^3+x^4)\), is also shown in black. We can see that a lot of draws were rejected. In fact for this example, 18631 draws were taken to get 10,000 accepted samples, or 46.33% of draws were rejected.
+In the figure above we can see all of the draws with the rejected samples in red and the accepted samples in blue. The target distribution, \(f(x)=30(x^2-2x^3+x^4)\), is also shown in black. We can see that a lot of draws were rejected. In fact for this example, 18741 draws were taken to get 10,000 accepted samples, or 46.64% of draws were rejected.
 
 To show the accuracy of the sampling, lets look at the histagram
 
@@ -444,7 +446,7 @@ Now let's look at when \(M\) is too large.
 
 ![](MonteCarlo_Simulations_files/figure-markdown_github/unnamed-chunk-21-1.png)
 
-Here we used \(M=3\) and we can see that a larger number of samples are rejected. As a matter of fact, for this example 67.08% of the samples were rejected, which is significantly more than when we used the optimial value of \(M\).
+Here we used \(M=3\) and we can see that a larger number of samples are rejected. As a matter of fact, for this example 66.98% of the samples were rejected, which is significantly more than when we used the optimial value of \(M\).
 
 5) Discrete Sampling Using The Inverse CDF
 ==========================================
@@ -502,7 +504,7 @@ print(sampleSummary/nSamples)
 ```
 
     ##     1     2     3 
-    ## 0.388 0.408 0.204
+    ## 0.403 0.400 0.197
 
 6) Gibbs Sampling
 =================

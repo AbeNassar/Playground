@@ -69,6 +69,7 @@ I.1k = sum(h_i)/N
 This time we have $I\approx$ `r I.1k`. 
 
 Lets try again with more simulations. Lets repeat the process with $N=10,000$.
+
 ```{r}
 N = 10000
 x_i <- runif(N, 0, 1)
@@ -76,9 +77,11 @@ h_i <- sapply(x_i, h)
 
 I.10k = sum(h_i)/N
 ```
+
 Here we get $I\approx$ `r I.10k`. 
 
 Note that since the $x_i$s are random it is possible to get a better approximate from $N=100$ than $N=10,000$, but generally you will have numbers distributed around the real value and the variance of those number should decrease as you increase $N$, the number of simulations. I.e. Larger values of $N$ give better approximations more often. To show this, lets do 100 approximations of $I$ using $N=100,1000,10000$. Then we can use a box plot to see the difference. 
+
 ```{r, fig.width=6, fig.height=4}
 # This function will approximate I given a value for N1:number of iterations.
 approximateI <- function(N1){
@@ -113,6 +116,7 @@ abline(h = 3*pi/16, col="red",lwd=2)
 # Adding legend
 legend('topright', "True value", col="red", lwd=2, bg="white")
 ```
+
 So each box represents 100 simulations of $I$ for a given $N$. The red line is at $3\pi/16$, corresponds true value of the integral. Notice all the boxplots are centered at the correct value, however as we increase the number of itereations $N$, we get less varaiance in the sample. i.e. As $N$ increases, the varaince of the sample decreases.
 
 ## b) Approximating $\int_0^\infty {x(1+x^2)^{-2}} dx$ 
@@ -120,6 +124,7 @@ So each box represents 100 simulations of $I$ for a given $N$. The red line is a
 # clear variables
 rm(list=ls())
 ```
+
 For this example, we can't use $f_X(x)$ as the uniform distribution because the integral limits are between 0 and infinity. We can choose $f_X$ to be the exponential distribution's PDF with $\lambda =1$, which means $f_X(x) = e^{-x}$. Now we can write the integral as
 \begin{align*}
   I &= \int_0^\infty {x(1+x^2)^{-2}} dx\\
@@ -128,6 +133,7 @@ For this example, we can't use $f_X(x)$ as the uniform distribution because the 
     &= \int_0^\infty {x(1+x^2)^{-2}\over e^{-x}}\cdot  f_X(x) dx
 \end{align*}
 This implies that $h(x)={x(1+x^2)^{-2}/ e^{-x}}$. So lets define this in R.
+
 ```{r}
 h <- function(x){
   if(x<0){
@@ -194,7 +200,6 @@ Again, as expected, we can see that as $N$ increases, we get better approximatio
 
 
 ##  c) Approximating $\int_{-\infty}^{\infty}e^{-x^2}dx$ 
-
 For this integral, we want to find a probability distribution that is defined on all of $\mathbb R$ since the integral is between negative infinity and positive infinity. Also notice that we have a $e^{-x^2}$ term, which hints that the normal PDF might be a good choice for $f_X(x)$ since it also has a $e^{-x^2}$ term. Recall that 
 \[
   f_X(x|\mu,\sigma^2)
@@ -341,7 +346,6 @@ The idea behind rejection sampling is that we want to draw randomly for a distri
 \]
 
 Once we have this $g$, we will uniformly sample values for $x_i$ on the domain of $f$ and we draw a random sample, $y_i$, from the distribution corresponding to $g(x)$. We then take that $x_i$ and if $f(x_i)\geq y_i\cdot M$, then we accept it as a random sample. Otherwise we discard it and repeat the process until we draw a $x_i$ and $y_i$ that satisfies $f(x_i)\geq y_i\cdot M$.
-
 
 # 4) Rejection Sampling
 ```{r, echo=FALSE}
